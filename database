@@ -1,0 +1,228 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.4.4
+-- Dumped by pg_dump version 9.4.4
+-- Started on 2015-09-24 17:49:27 BRT
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 176 (class 3079 OID 12123)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2281 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 173 (class 1259 OID 16403)
+-- Name: fornecedor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE fornecedor (
+    id integer NOT NULL,
+    nome character varying(50) NOT NULL,
+    cnpj integer NOT NULL,
+    endereco character varying(100)
+);
+
+
+ALTER TABLE fornecedor OWNER TO postgres;
+
+--
+-- TOC entry 172 (class 1259 OID 16401)
+-- Name: fornecedor_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE fornecedor_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE fornecedor_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2282 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: fornecedor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE fornecedor_id_seq OWNED BY fornecedor.id;
+
+
+--
+-- TOC entry 175 (class 1259 OID 16461)
+-- Name: produto; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE produto (
+    id integer NOT NULL,
+    nome text NOT NULL,
+    marca text NOT NULL,
+    data_cadastro date,
+    valor_unitario numeric NOT NULL,
+    quantidade integer NOT NULL,
+    fornecedor_id integer
+);
+
+
+ALTER TABLE produto OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 16459)
+-- Name: produto_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE produto_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE produto_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2283 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: produto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE produto_id_seq OWNED BY produto.id;
+
+
+--
+-- TOC entry 2154 (class 2604 OID 16406)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY fornecedor ALTER COLUMN id SET DEFAULT nextval('fornecedor_id_seq'::regclass);
+
+
+--
+-- TOC entry 2155 (class 2604 OID 16464)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY produto ALTER COLUMN id SET DEFAULT nextval('produto_id_seq'::regclass);
+
+
+--
+-- TOC entry 2271 (class 0 OID 16403)
+-- Dependencies: 173
+-- Data for Name: fornecedor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO fornecedor VALUES (1, 'Leonardo', 12223222, 'Rua Afonso Lopes');
+INSERT INTO fornecedor VALUES (5, 'leonardo linhares', 123233323, 'rua 4 ');
+INSERT INTO fornecedor VALUES (6, 'teste', 123132, '12323213');
+INSERT INTO fornecedor VALUES (2, 'Lucas', 12223222, 'Rua Afonso Lopes');
+INSERT INTO fornecedor VALUES (3, 'simone', 123443330, '');
+INSERT INTO fornecedor VALUES (4, 'luis', 1234443333, '');
+INSERT INTO fornecedor VALUES (7, 'leonardo linhares', 123333222, 'rua teste');
+INSERT INTO fornecedor VALUES (8, 'leonardo', 123323233, 'rua teste2');
+
+
+--
+-- TOC entry 2284 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: fornecedor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('fornecedor_id_seq', 8, true);
+
+
+--
+-- TOC entry 2273 (class 0 OID 16461)
+-- Dependencies: 175
+-- Data for Name: produto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO produto VALUES (1, 'teste', 'marca1', '2015-09-24', 12.23, 12, 1);
+INSERT INTO produto VALUES (2, 'teste2', 'marca2', '2015-09-24', 34.54, 34, 3);
+INSERT INTO produto VALUES (3, 'teste3', 'marca3', '2015-09-24', 23.1, 54, 2);
+INSERT INTO produto VALUES (4, 'teste4', 'marca2', '2015-09-24', 54.31, 12, 2);
+INSERT INTO produto VALUES (5, 'teste3', 'marca3', '2015-09-24', 2332.32, 34, 3);
+INSERT INTO produto VALUES (6, 'leonardo', 'marca3', '2015-09-24', 34, 12, 2);
+
+
+--
+-- TOC entry 2285 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: produto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('produto_id_seq', 6, true);
+
+
+--
+-- TOC entry 2157 (class 2606 OID 16408)
+-- Name: fornecedor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY fornecedor
+    ADD CONSTRAINT fornecedor_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2159 (class 2606 OID 16469)
+-- Name: produto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY produto
+    ADD CONSTRAINT produto_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2160 (class 2606 OID 16470)
+-- Name: produto_fornecedor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY produto
+    ADD CONSTRAINT produto_fornecedor_id_fkey FOREIGN KEY (fornecedor_id) REFERENCES fornecedor(id);
+
+
+--
+-- TOC entry 2280 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2015-09-24 17:49:27 BRT
+
+--
+-- PostgreSQL database dump complete
+--
+
