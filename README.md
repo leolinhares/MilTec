@@ -1,6 +1,6 @@
 # MilTec
 Prova da Mil Tecnologia
 
-Linguagem: Java
-IDE: Eclipse
-Banco de Dados: PostgreSQL
+1. Linguagem: Java
+2. IDE: Eclipse
+3. Banco de Dados: PostgreSQL
