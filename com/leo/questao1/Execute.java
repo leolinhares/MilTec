@@ -194,6 +194,7 @@ public class Execute {
 			default:
 				System.out.println("Opcao invalida");
 		}
+		sc.close();
 	}
 	public static void main(String[] args) {
 
