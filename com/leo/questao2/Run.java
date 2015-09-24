@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Gratificacao {
+public class Run {
 	
 	private static Funcionario dados() throws ParseException{
 		Scanner sc = new Scanner(System.in);
